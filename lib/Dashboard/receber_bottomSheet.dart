@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:meu_saldo/constants.dart';
 
-class EnviarBottomSheet extends StatefulWidget {
-  const EnviarBottomSheet({Key? key}) : super(key: key);
+class ReceberBottomSheet extends StatefulWidget {
+  const ReceberBottomSheet({Key? key}) : super(key: key);
 
   @override
-  _EnviarBottomSheetState createState() => _EnviarBottomSheetState();
+  _ReceberBottomSheetState createState() => _ReceberBottomSheetState();
 }
 
-class _EnviarBottomSheetState extends State<EnviarBottomSheet> {
-  final _enviarController = TextEditingController();
+class _ReceberBottomSheetState extends State<ReceberBottomSheet> {
+  final _receberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,10 +40,10 @@ class _EnviarBottomSheetState extends State<EnviarBottomSheet> {
                 ),
               ),
               Text(
-                'Enviar \nSaldo disponível',
+                'Receber Saldo',
                 style: kDescLancamento,
               ),
-              buildTextField(_enviarController)
+              buildTextField(_receberController)
             ],
           ),
         ),

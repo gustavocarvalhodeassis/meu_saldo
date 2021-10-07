@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_saldo/Dashboard/enviar_bottomSheet.dart';
+import 'package:meu_saldo/Dashboard/receber_bottomSheet.dart';
 import 'package:meu_saldo/constants.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -17,6 +18,15 @@ class _DashboardState extends State<Dashboard> {
         context: context,
         builder: (BuildContext context) {
           return EnviarBottomSheet();
+        });
+  }
+
+  void showReceberBottomSheet() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return ReceberBottomSheet();
         });
   }
 
@@ -56,7 +66,9 @@ class _DashboardState extends State<Dashboard> {
               ),
             ), //User Drop --FIM
 
-            mainPadding(),
+            AnimatedPadding(
+                padding: EdgeInsets.only(top: 120),
+                duration: Duration(seconds: 1)),
 
             //Account Saldo + Container Inteiro
             Container(
@@ -128,8 +140,8 @@ class _DashboardState extends State<Dashboard> {
                 buildTrowButton(
                     Icons.north, kDangerColor, 'Enviar', showEnviarBottomSheet),
                 Padding(padding: EdgeInsets.only(left: 10)),
-                buildTrowButton(
-                    Icons.south, kSuccessColor, 'Receber', () => null),
+                buildTrowButton(Icons.south, kSuccessColor, 'Receber',
+                    showReceberBottomSheet),
                 Padding(padding: EdgeInsets.only(left: 10)),
                 buildTrowButton(Icons.info, kInfoColor, 'Sobre nós', () => null)
               ],

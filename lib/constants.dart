@@ -33,3 +33,66 @@ const TextStyle kMeuSaldo = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w600,
 );
+
+const TextStyle kDescLancamento = TextStyle(
+  color: kLightColor,
+  fontSize: 36,
+  fontWeight: FontWeight.w400,
+);
+
+const TextStyle kPrefixLabelStyle = TextStyle(
+  color: kLightColor,
+  fontSize: 36,
+  fontWeight: FontWeight.w300,
+);
+const TextStyle kTextInputStyle = TextStyle(
+  color: kLightColor,
+  fontSize: 25,
+  fontWeight: FontWeight.w400,
+);
+
+Widget buildTextField(TextEditingController controler) {
+  return TextField(
+    cursorColor: kLightColor,
+    cursorHeight: 25,
+    style: kTextInputStyle,
+    controller: controler,
+    decoration: InputDecoration(
+        labelText: 'R\$',
+        alignLabelWithHint: true,
+        labelStyle: kPrefixLabelStyle,
+        border: buildFocusedInputBorder(),
+        errorBorder: buildErrorInputBorder(),
+        enabledBorder: buildNormalInputBorder(),
+        focusedBorder: buildFocusedInputBorder(),
+        disabledBorder: buildNormalInputBorder(),
+        focusedErrorBorder: buildErrorInputBorder()),
+  );
+}
+
+InputBorder buildNormalInputBorder() {
+  return UnderlineInputBorder(
+    borderSide: BorderSide(
+      width: 1,
+      color: kPrimaryColor,
+    ),
+  );
+}
+
+InputBorder buildErrorInputBorder() {
+  return UnderlineInputBorder(
+    borderSide: BorderSide(
+      width: 2,
+      color: Colors.red,
+    ),
+  );
+}
+
+InputBorder buildFocusedInputBorder() {
+  return UnderlineInputBorder(
+    borderSide: BorderSide(
+      width: 2,
+      color: kPrimaryColor,
+    ),
+  );
+}
