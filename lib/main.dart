@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meu_saldo/Dashboard/dashboard_screen.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 
 void main() {
@@ -16,6 +16,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       home: Dashboard(),
       theme: ThemeData(
+        textTheme: GoogleFonts.montserratTextTheme(),
         primaryColor: kPrimaryColor,
         canvasColor: kDarkColor,
         backgroundColor: kDarkColor,

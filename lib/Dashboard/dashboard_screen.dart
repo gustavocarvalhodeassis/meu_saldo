@@ -4,6 +4,18 @@ import 'package:meu_saldo/Dashboard/receber_bottomSheet.dart';
 import 'package:meu_saldo/constants.dart';
 import 'package:ionicons/ionicons.dart';
 
+void subtractSaldo() {
+  double valor = double.parse(enviarController.text);
+  saldoAtual = (saldoAtual - valor);
+}
+
+void addSaldo() {
+  double valor = double.parse(receberController.text);
+  saldoAtual = (saldoAtual + valor);
+}
+
+double saldoAtual = 0;
+
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
 
@@ -30,126 +42,63 @@ class _DashboardState extends State<Dashboard> {
         });
   }
 
+  bool openOptions = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            //User Drop
-            GestureDetector(
-              onTap: () {},
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/img/logo.png',
-                        scale: 13,
-                      ),
-                      Padding(padding: EdgeInsets.only(left: 10)),
-                      Text(
-                        'Gustavo',
-                        style: kUserName,
-                      )
-                    ],
-                  ),
-                  IconButton(
-                      onPressed: () {}, icon: Icon(Ionicons.chevron_down))
-                ],
-              ),
-            ), //User Drop --FIM
-
-            AnimatedPadding(
-                padding: EdgeInsets.only(top: 120),
-                duration: Duration(seconds: 1)),
-
-            //Account Saldo + Container Inteiro
-            Container(
-              height: size.height * 0.3,
-              width: size.width * 1,
-              child: Container(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    openOptions = !openOptions;
+                  });
+                },
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(10, 10, 5, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(Ionicons.cash),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Ionicons.eye),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Saldo disponível',
-                            style: kHide,
-                          ),
-                          Text(
-                            'R\$ 150,00',
-                            style: kSaldo,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
-                        height: size.height * 0.1,
-                        width: size.width * 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '06 de setembro de 2021',
-                              style: kHide,
-                            ),
-                            Text(
-                              'Meu Saldo',
-                              style: kMeuSaldo,
-                            )
-                          ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/img/logo.png',
+                          scale: 13,
                         ),
-                        decoration: buildBoxDecoration(0.1))
+                        Padding(padding: EdgeInsets.only(left: 10)),
+                        Text(
+                          'Gustavo',
+                          style: kUserName,
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
-              decoration: buildBoxDecoration(0.1),
-            ), //Account Saldo + Container Inteiro -- FIM
-            mainPadding(),
-            //Lançamentos + Contianer
-            Row(
-              children: [
-                buildTrowButton(
-                    Icons.north, kDangerColor, 'Enviar', showEnviarBottomSheet),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                buildTrowButton(Icons.south, kSuccessColor, 'Receber',
-                    showReceberBottomSheet),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                buildTrowButton(Icons.info, kInfoColor, 'Sobre nós', () => null)
-              ],
-            ) //Lançamentos + Contianer --FIM
-          ],
+              mainPadding(),
+              buildShowerSaldo(context),
+              mainPadding(),
+              Row(
+                children: [
+                  buildTrowButton(Icons.north, kDangerColor, 'Enviar',
+                      showEnviarBottomSheet),
+                  Padding(padding: EdgeInsets.only(left: 10)),
+                  buildTrowButton(Icons.south, kSuccessColor, 'Receber',
+                      showReceberBottomSheet),
+                  Padding(padding: EdgeInsets.only(left: 10)),
+                  buildTrowButton(
+                      Icons.info, kInfoColor, 'Sobre nós', () => null)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -196,3 +145,70 @@ Widget buildTrowButton(
 Widget mainPadding() {
   return Padding(padding: EdgeInsets.only(top: 30));
 } //Widget MainPadding --FIM
+
+Widget buildShowerSaldo(BuildContext context) {
+  Size size = MediaQuery.of(context).size;
+  return AnimatedContainer(
+    duration: Duration(seconds: 1),
+    height: size.height * 0.3,
+    width: size.width * 1,
+    child: Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 10, 5, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(Ionicons.cash),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Ionicons.eye),
+                )
+              ],
+            ),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Saldo disponível',
+                  style: kHide,
+                ),
+                Text(
+                  'R\$ $saldoAtual',
+                  style: kSaldo,
+                )
+              ],
+            ),
+          ),
+          Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+              height: size.height * 0.1,
+              width: size.width * 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '06 de setembro de 2021',
+                    style: kHide,
+                  ),
+                  Text(
+                    'Meu Saldo',
+                    style: kMeuSaldo,
+                  )
+                ],
+              ),
+              decoration: buildBoxDecoration(0.1))
+        ],
+      ),
+    ),
+    decoration: buildBoxDecoration(0.1),
+  );
+}

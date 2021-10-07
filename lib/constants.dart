@@ -50,9 +50,17 @@ const TextStyle kTextInputStyle = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w400,
 );
+const TextStyle kButtonText = TextStyle(
+  color: kDarkColor,
+  fontSize: 22,
+  fontWeight: FontWeight.w600,
+);
 
-Widget buildTextField(TextEditingController controler) {
+Widget buildTextField(
+  TextEditingController controler,
+) {
   return TextField(
+    keyboardType: TextInputType.number,
     cursorColor: kLightColor,
     cursorHeight: 25,
     style: kTextInputStyle,
