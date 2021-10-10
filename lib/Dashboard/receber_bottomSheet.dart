@@ -55,9 +55,7 @@ class _ReceberBottomSheetState extends State<ReceberBottomSheet> {
         ),
         floatingActionButton: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
-              receberController.clear();
-              addSaldo();
+              addSaldo(context);
             },
             child: Container(
               alignment: Alignment.center,

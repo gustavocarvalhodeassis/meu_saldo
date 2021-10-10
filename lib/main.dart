@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:meu_saldo/Dashboard/dashboard_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(

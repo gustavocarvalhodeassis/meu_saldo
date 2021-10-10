@@ -4,14 +4,20 @@ import 'package:meu_saldo/Dashboard/receber_bottomSheet.dart';
 import 'package:meu_saldo/constants.dart';
 import 'package:ionicons/ionicons.dart';
 
-void subtractSaldo() {
+void subtractSaldo(BuildContext context) {
   double valor = double.parse(enviarController.text);
   saldoAtual = (saldoAtual - valor);
+
+  Navigator.pop(context);
+
+  enviarController.clear();
 }
 
-void addSaldo() {
+void addSaldo(BuildContext context) {
   double valor = double.parse(receberController.text);
   saldoAtual = (saldoAtual + valor);
+  Navigator.pop(context);
+  receberController.clear();
 }
 
 double saldoAtual = 0;
@@ -22,6 +28,8 @@ class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
 }
+
+final dash = _DashboardState();
 
 class _DashboardState extends State<Dashboard> {
   void showEnviarBottomSheet() {
@@ -42,7 +50,14 @@ class _DashboardState extends State<Dashboard> {
         });
   }
 
-  bool openOptions = false;
+  bool showSaldoValue = false;
+
+  void showSaldo() {
+    setState(() {
+      showSaldoValue = !showSaldoValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,9 +71,7 @@ class _DashboardState extends State<Dashboard> {
             children: [
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    openOptions = !openOptions;
-                  });
+                  setState(() {});
                 },
                 child: Column(
                   children: [
@@ -155,19 +168,11 @@ Widget buildShowerSaldo(BuildContext context) {
     child: Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(10, 10, 5, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Ionicons.cash),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Ionicons.eye),
-                )
-              ],
-            ),
+            child: Icon(Ionicons.cash),
           ),
           Container(
             alignment: Alignment.topLeft,

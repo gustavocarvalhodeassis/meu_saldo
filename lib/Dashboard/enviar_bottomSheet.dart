@@ -54,9 +54,7 @@ class _EnviarBottomSheetState extends State<EnviarBottomSheet> {
         ),
         floatingActionButton: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
-              enviarController.clear();
-              subtractSaldo();
+              subtractSaldo(context);
             },
             child: Container(
               alignment: Alignment.center,
